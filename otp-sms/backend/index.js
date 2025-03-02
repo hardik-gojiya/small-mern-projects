@@ -13,7 +13,6 @@ const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 app.post("/send-otp", async (req, res) => {
   const { mobile } = req.body;
   const otp = Math.floor(100000 + Math.random() * 900000);
-  console.log(otp);
 
   try {
     const message = await client.messages.create({
@@ -21,7 +20,6 @@ app.post("/send-otp", async (req, res) => {
       from: process.env.TWILIO_PHONE_NUMBER,
       to: mobile,
     });
-    console.log("OTP sent:", otp);
     res.status(200).json({ message: "OTP sent successfully!" });
   } catch (error) {
     console.log(error);
